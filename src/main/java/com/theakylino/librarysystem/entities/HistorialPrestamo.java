@@ -12,8 +12,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.sql.Date;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Setter
+@Getter
 @Entity
 @Table(name = "historial_prestamo")
 public class HistorialPrestamo {

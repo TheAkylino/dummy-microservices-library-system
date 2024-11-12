@@ -9,7 +9,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "categoria")
 public class Categoria {

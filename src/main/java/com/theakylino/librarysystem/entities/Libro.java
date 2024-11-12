@@ -18,9 +18,11 @@ import jakarta.persistence.TemporalType;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "libro")
 public class Libro {

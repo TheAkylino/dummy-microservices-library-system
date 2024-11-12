@@ -10,7 +10,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "editorial")
 public class Editorial {

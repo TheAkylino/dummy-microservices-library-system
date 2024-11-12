@@ -1,5 +1,8 @@
 package com.theakylino.librarysystem.repositories;
 
-public interface CategoriaRepository {
+import com.theakylino.librarysystem.entities.Categoria;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 }
