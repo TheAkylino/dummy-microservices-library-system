@@ -1,20 +1,18 @@
 package com.theakylino.librarysystem.services;
 
-import com.theakylino.librarysystem.entities.Prestamo;
+import com.theakylino.librarysystem.dtos.PrestamoDTO;
 import java.util.List;
 import java.util.Optional;
 
 public interface PrestamoService {
 
-  List<Prestamo> findAllPrestamos();
+  PrestamoDTO createPrestamo(PrestamoDTO prestamoDTO);
 
-  Optional<Prestamo> findPrestamoById(Long id);
+  Optional<PrestamoDTO> getPrestamoById(Long id);
 
-  Prestamo createPrestamo(Long libroId, Long usuarioId, Prestamo prestamo);
-
-  Prestamo updatePrestamo(Prestamo prestamo);
+  PrestamoDTO updatePrestamo(Long id, PrestamoDTO prestamoDTO);
 
   void deletePrestamo(Long id);
 
-  List<Prestamo> findActivePrestamosByUsuario(Long usuarioId);
+  List<PrestamoDTO> getAllPrestamos();
 }

@@ -6,15 +6,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {CategoriaMapper.class})
+@Mapper(componentModel = "spring")
 public interface LibroMapper {
   LibroMapper INSTANCE = Mappers.getMapper(LibroMapper.class);
 
-  // Mapea solo el editorialId en lugar de un objeto completo de EditorialDTO
-  @Mapping(target = "editorialId", source = "editorial.id")
+  @Mapping(target = "autorId", source = "autor.id")
   LibroDTO toDTO(Libro libro);
 
-  // Mapea solo el editorialId a la entidad; el objeto Editorial se asignará en el servicio si es necesario
-  @Mapping(target = "editorial.id", source = "editorialId")
+  @Mapping(target = "autor", ignore = true)
   Libro toEntity(LibroDTO libroDTO);
 }

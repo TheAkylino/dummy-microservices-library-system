@@ -6,9 +6,9 @@ info:
 
 errorHandler:
   messages:
-    errorCreateEditorial: "Ha ocurrido un error al momento de crear editorial"
+    errorCreatePrestamo: "Ha ocurrido un error al momento de crear prestamo"
     errorCreateAutor: "Ha ocurrido un error al momento de crear autor"
-    errorCreateCategoria: "Ha ocurrido un error al momento de crear categoria"
+    errorCreateLibro: "Ha ocurrido un error al momento de crear libro"
 
 server:
   port: 8081

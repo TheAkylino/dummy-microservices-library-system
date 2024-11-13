@@ -10,7 +10,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
@@ -20,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "autor")
-public class Autor {
+public class Autor{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,5 +37,5 @@ public class Autor {
 
   // Relación uno a muchos con Libro
   @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
-  private final Set<Libro> libros = new HashSet<>();
+  private Set<Libro> libros = new HashSet<>();
 }

@@ -6,16 +6,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {LibroMapper.class})
+@Mapper(componentModel = "spring")
 public interface PrestamoMapper {
+
   PrestamoMapper INSTANCE = Mappers.getMapper(PrestamoMapper.class);
 
-  // Mapea solo el usuarioId en lugar de un objeto completo de UsuarioDTO
-  @Mapping(target = "usuarioId", source = "usuario.id")
+  // Mapeo de Prestamo a PrestamoDTO
+  @Mapping(target = "libroId", source = "libro.id")
   PrestamoDTO toDTO(Prestamo prestamo);
 
-  // Mapea solo el usuarioId en el DTO a la propiedad usuario en la entidad
-  // Se asignará el objeto Usuario completo en el servicio si es necesario
-  @Mapping(target = "usuario.id", source = "usuarioId")
+  // Mapeo de PrestamoDTO a Prestamo
+  @Mapping(target = "libro", ignore = true)  // Se maneja en el servicio
   Prestamo toEntity(PrestamoDTO prestamoDTO);
 }

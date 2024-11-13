@@ -1,17 +1,17 @@
 package com.theakylino.librarysystem.services.impl;
 
-import com.theakylino.librarysystem.entities.Autor;
-import com.theakylino.librarysystem.entities.Libro;
+import com.theakylino.librarysystem.dtos.AutorDTO;
+import com.theakylino.librarysystem.mappers.AutorMapper;
 import com.theakylino.librarysystem.repositories.AutorRepository;
 import com.theakylino.librarysystem.services.AutorService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
@@ -21,37 +21,59 @@ public class AutorServiceImpl implements AutorService {
   @Value("${errorHandler.messages.errorCreateAutor}")
   private String mensajeError;
 
-  @Autowired private AutorRepository autorRepository;
+  @Autowired
+  private AutorRepository autorRepository;
+  @Autowired
+  private AutorMapper autorMapper;
+
 
   @Override
-  public List<Autor> findAllAutores() {
-    return List.of();
-  }
-
-  @Override
-  public Optional<Autor> findAutorById(final Long id) {
-    return Optional.empty();
-  }
-
-  @Override
-  public Autor createAutor(final Autor autor) {
-    return Optional.of(autor)
-        .map(autorToSave -> autorRepository.save(autorToSave))
+  public AutorDTO crearAutor(AutorDTO autorDTO) {
+    return Optional.of(validarExistenciaAutorPorNombre(autorDTO))
+        .map(autorMapper::toEntity)
+        .map(autorRepository::save)
+        .map(autorMapper::toDTO)
         .orElseThrow(() -> new RuntimeException(mensajeError));
   }
 
-  @Override
-  public Autor updateAutor(final Autor autor) {
-    return null;
+  private AutorDTO validarExistenciaAutorPorNombre(AutorDTO autorDTO) {
+    autorRepository.findAutoresByNombre(autorDTO.getNombre())
+        .ifPresent(autor -> {
+          throw new RuntimeException("El autor con el nombre '"
+              + autorDTO.getNombre() + "' ya existe.");
+        });
+    return autorDTO;
   }
 
   @Override
-  public void deleteAutor(final Long id) {
-
+  public Optional<AutorDTO> getAutorById(Long id) {
+    return autorRepository.findById(id)
+        .map(autorMapper::toDTO);
   }
 
   @Override
-  public List<Libro> findLibrosByAutor(final Long autorId) {
-    return List.of();
+  public AutorDTO updateAutor(Long id, AutorDTO autorDTO) {
+    return getAutorById(id)
+        .map(existingAutor -> {
+          existingAutor.setNombre(autorDTO.getNombre());
+          existingAutor.setNacionalidad(autorDTO.getNacionalidad());
+          existingAutor.setFechaNacimiento(autorDTO.getFechaNacimiento());
+          var autorActualizado = autorRepository.save(autorMapper.toEntity(existingAutor));
+          return autorMapper.toDTO(autorActualizado);
+        })
+        .orElseThrow(() -> new RuntimeException("Autor con ID " + id + " no encontrado."));
+  }
+
+  @Override
+  public void deleteAutor(Long id) {
+    autorRepository.deleteById(id);
+  }
+
+  @Override
+  public List<AutorDTO> getAllAutores() {
+    return autorRepository.findAll()
+        .stream()
+        .map(autorMapper::toDTO)
+        .collect(Collectors.toList());
   }
 }

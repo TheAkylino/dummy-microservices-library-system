@@ -36,13 +36,7 @@ public class Prestamo {
   @Column(nullable = false)
   private String estado; // Activo / Finalizado
 
-  // Relación muchos a uno con Libro
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "libro_id")
   private Libro libro;
-
-  // Relación muchos a uno con Usuario
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "usuario_id")
-  private Usuario usuario;
 }

@@ -1,21 +1,18 @@
 package com.theakylino.librarysystem.services;
 
-import com.theakylino.librarysystem.entities.Autor;
-import com.theakylino.librarysystem.entities.Libro;
+import com.theakylino.librarysystem.dtos.AutorDTO;
 import java.util.List;
 import java.util.Optional;
 
 public interface AutorService {
 
-  List<Autor> findAllAutores();
+  AutorDTO crearAutor(AutorDTO autorDTO);
 
-  Optional<Autor> findAutorById(Long id);
+  Optional<AutorDTO> getAutorById(Long id);
 
-  Autor createAutor(Autor autor);
-
-  Autor updateAutor(Autor autor);
+  AutorDTO  updateAutor(Long id, AutorDTO autorDTO);
 
   void deleteAutor(Long id);
 
-  List<Libro> findLibrosByAutor(Long autorId);
+  List<AutorDTO> getAllAutores();
 }

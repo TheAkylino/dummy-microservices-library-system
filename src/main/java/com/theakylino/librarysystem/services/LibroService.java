@@ -1,30 +1,25 @@
 package com.theakylino.librarysystem.services;
 
-import com.theakylino.librarysystem.entities.HistorialPrestamo;
-import com.theakylino.librarysystem.entities.Libro;
-import com.theakylino.librarysystem.entities.Prestamo;
-import com.theakylino.librarysystem.entities.Reserva;
+import com.theakylino.librarysystem.dtos.LibroDTO;
+import com.theakylino.librarysystem.dtos.PrestamoDTO;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface LibroService {
 
-  List<Libro> findAllLibros();
+  LibroDTO createLibro(LibroDTO  libroDTO);
 
-  Optional<Libro> findLibroById(Long id);
+  Optional<LibroDTO> getLibroById(Long id);
 
-  Libro createLibro(Libro libro, Long autorId, Long editorialId, Set<Long> categoriaIds);
-
-  Libro updateLibro(Libro libro);
+  LibroDTO updateLibro(Long id, LibroDTO libroDTO);
 
   void deleteLibro(Long id);
 
+  List<LibroDTO> getAllLibros();
+
+  List<PrestamoDTO> getPrestamosByLibroId(Long libroId);
+
   boolean isLibroDisponible(Long libroId);
 
-  List<Prestamo> findPrestamosByLibro(Long libroId);
-
-  List<Reserva> findReservasByLibro(Long libroId);
-
-  List<HistorialPrestamo> findHistorialPrestamosByLibro(Long libroId);
+  List<LibroDTO> getAllLibrosPaginados(int page, int size);
 }
