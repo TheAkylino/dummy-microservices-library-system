@@ -1,6 +1,5 @@
 package com.theakylino.librarysystem.dtos;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class CategoriaDTO {
 
-  private UUID id;
+  private Long id;
   private String nombre;
   private String descripcion;
 }

@@ -2,13 +2,14 @@ package com.theakylino.librarysystem.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +17,12 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "categoria")
+@SequenceGenerator(name = "global_seq", sequenceName = "global_sequence", initialValue = 1000, allocationSize = 1)
 public class Categoria {
+
   @Id
-  @Column(columnDefinition = "VARCHAR(36)")
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+  private Long id;
 
   @Column(nullable = false)
   private String nombre;
@@ -30,11 +33,4 @@ public class Categoria {
   // Relación muchos a muchos con Libro
   @ManyToMany(mappedBy = "categorias")
   private Set<Libro> libros = new HashSet<>();
-
-  @PrePersist
-  public void generarUUID() {
-    if (id == null) {
-      id = UUID.randomUUID();
-    }
-  }
 }

@@ -14,3 +14,4 @@ public interface CategoriaMapper {
 
   Categoria toEntity(CategoriaDTO categoriaDTO);
 }
+
