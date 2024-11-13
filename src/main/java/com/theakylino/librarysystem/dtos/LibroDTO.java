@@ -1,7 +1,7 @@
 package com.theakylino.librarysystem.dtos;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +15,5 @@ public class LibroDTO {
   private String estado;
   private Long autorId;   // Solo el ID del autor
   private Long editorialId; // Solo el ID de la editorial
-  private List<CategoriaDTO> categorias;
+  private Set<Long> categoriaIds;  // IDs de las categorías
 }

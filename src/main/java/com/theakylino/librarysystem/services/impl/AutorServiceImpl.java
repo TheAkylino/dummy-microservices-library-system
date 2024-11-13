@@ -9,16 +9,19 @@ import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
 @Component
 @Transactional
 @Slf4j
-@AllArgsConstructor
 public class AutorServiceImpl implements AutorService {
 
-  private  AutorRepository autorRepository;
+  @Value("${errorHandler.messages.errorCreateAutor}")
+  private String mensajeError;
 
+  @Autowired private AutorRepository autorRepository;
 
   @Override
   public List<Autor> findAllAutores() {
@@ -34,7 +37,7 @@ public class AutorServiceImpl implements AutorService {
   public Autor createAutor(final Autor autor) {
     return Optional.of(autor)
         .map(autorToSave -> autorRepository.save(autorToSave))
-        .orElseThrow(() -> new RuntimeException("Error creando un Autor"));
+        .orElseThrow(() -> new RuntimeException(mensajeError));
   }
 
   @Override

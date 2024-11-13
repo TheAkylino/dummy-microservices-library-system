@@ -4,6 +4,12 @@ info:
     description: @project.description@
     version: @project.version@
 
+errorHandler:
+  messages:
+    errorCreateEditorial: "Ha ocurrido un error al momento de crear editorial"
+    errorCreateAutor: "Ha ocurrido un error al momento de crear autor"
+    errorCreateCategoria: "Ha ocurrido un error al momento de crear categoria"
+
 server:
   port: 8081
   servlet:
