@@ -25,3 +25,7 @@
 
 ![img.png](img.png)
 
+------------------------------------------------------------------------------
+*La url del swagger es: http://localhost:8081/dummy-microservices-library-system/swagger-ui/index.html#/* <br/>
+*La url de la base de datos local es: http://localhost:8081/dummy-microservices-library-system/h2-console/* <br/>
+![img_1.png](img_1.png)

@@ -11,11 +11,9 @@ public interface PrestamoMapper {
 
   PrestamoMapper INSTANCE = Mappers.getMapper(PrestamoMapper.class);
 
-  // Mapeo de Prestamo a PrestamoDTO
   @Mapping(target = "libroId", source = "libro.id")
   PrestamoDTO toDTO(Prestamo prestamo);
 
-  // Mapeo de PrestamoDTO a Prestamo
-  @Mapping(target = "libro", ignore = true)  // Se maneja en el servicio
+  @Mapping(target = "libro", ignore = true)
   Prestamo toEntity(PrestamoDTO prestamoDTO);
 }

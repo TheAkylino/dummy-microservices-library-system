@@ -6,13 +6,15 @@ import java.util.Optional;
 
 public interface PrestamoService {
 
-  PrestamoDTO createPrestamo(PrestamoDTO prestamoDTO);
+  PrestamoDTO crearPrestamo(PrestamoDTO prestamoDTO);
 
-  Optional<PrestamoDTO> getPrestamoById(Long id);
+  Optional<PrestamoDTO> obtenerPrestamoById(Long id);
 
-  PrestamoDTO updatePrestamo(Long id, PrestamoDTO prestamoDTO);
+  PrestamoDTO actualizarPrestamo(Long id, PrestamoDTO prestamoDTO);
 
-  void deletePrestamo(Long id);
+  void borrarPrestamo(Long id);
 
-  List<PrestamoDTO> getAllPrestamos();
+  List<PrestamoDTO> obtenerTodosPrestamos();
+
+  List<PrestamoDTO> listaPrestamosPorLibro(Long libroId);
 }

@@ -9,6 +9,7 @@ import com.theakylino.librarysystem.services.PrestamoService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,7 @@ public class PrestamoServiceImpl implements PrestamoService {
 
 
   @Override
-  public PrestamoDTO createPrestamo(PrestamoDTO prestamoDTO) {
+  public PrestamoDTO crearPrestamo(PrestamoDTO prestamoDTO) {
     return Optional.of(prestamoDTO)
         .map(prestamoMapper::toEntity)
         .map(prestamo -> asignarLibro(prestamo, prestamoDTO.getLibroId()))
@@ -48,22 +49,43 @@ public class PrestamoServiceImpl implements PrestamoService {
   }
 
   @Override
-  public Optional<PrestamoDTO> getPrestamoById(Long id) {
-    return Optional.empty();
+  public Optional<PrestamoDTO> obtenerPrestamoById(Long id) {
+    return prestamoRepository.findById(id)
+        .map(prestamoMapper::toDTO);
   }
 
   @Override
-  public PrestamoDTO updatePrestamo(Long id, PrestamoDTO prestamoDTO) {
+  public PrestamoDTO actualizarPrestamo(Long id, PrestamoDTO prestamoDTO) {
+    return obtenerPrestamoById(id)
+        .map(existingPrestamo -> {
+          existingPrestamo.setFechaPrestamo(prestamoDTO.getFechaPrestamo());
+          existingPrestamo.setFechaDevolucion(prestamoDTO.getFechaDevolucion());
+          existingPrestamo.setEstado(prestamoDTO.getEstado());
+          var PrestamoActualizado = prestamoRepository.save(prestamoMapper.toEntity(existingPrestamo));
+          return prestamoMapper.toDTO(PrestamoActualizado);
+        })
+        .orElseThrow(() -> new RuntimeException("Autor con ID " + id + " no encontrado."));
+  }
+
+  @Override
+  public void borrarPrestamo(Long id) {
+    prestamoRepository.deleteById(id);
+  }
+
+  @Override
+  public List<PrestamoDTO> obtenerTodosPrestamos() {
+    return prestamoRepository.findAll()
+        .stream()
+        .map(prestamoMapper::toDTO)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<PrestamoDTO> listaPrestamosPorLibro(Long libroId) {
+//    return prestamoRepository.buscarPorIdDeLibro(libroId)
+//        .stream()
+//        .map(prestamoMapper::toDTO)
+//        .collect(Collectors.toList());
     return null;
-  }
-
-  @Override
-  public void deletePrestamo(Long id) {
-
-  }
-
-  @Override
-  public List<PrestamoDTO> getAllPrestamos() {
-    return List.of();
   }
 }

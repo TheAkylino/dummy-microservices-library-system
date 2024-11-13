@@ -9,5 +9,5 @@ import org.springframework.data.repository.query.Param;
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 
   @Query("SELECT a FROM Autor a WHERE a.nombre = :nombre")
-  Optional<Autor> findAutoresByNombre(@Param("nombre") String nombre);
+  Optional<Autor> buscarAutorPorTitulo(@Param("nombre") String nombre);
 }

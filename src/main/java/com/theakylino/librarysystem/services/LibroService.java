@@ -1,25 +1,23 @@
 package com.theakylino.librarysystem.services;
 
 import com.theakylino.librarysystem.dtos.LibroDTO;
-import com.theakylino.librarysystem.dtos.PrestamoDTO;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 
 public interface LibroService {
 
-  LibroDTO createLibro(LibroDTO  libroDTO);
+  LibroDTO crearLibro(LibroDTO  libroDTO);
 
-  Optional<LibroDTO> getLibroById(Long id);
+  Optional<LibroDTO> obtenerLibroPorId(Long id);
 
-  LibroDTO updateLibro(Long id, LibroDTO libroDTO);
+  LibroDTO actualizarLibroPorId(Long id, LibroDTO libroDTO);
 
-  void deleteLibro(Long id);
+  void eliminarLibroPorId(Long id);
 
-  List<LibroDTO> getAllLibros();
+  List<LibroDTO> obtenerTodosLosLibros();
 
-  List<PrestamoDTO> getPrestamosByLibroId(Long libroId);
+  boolean isLibrosDisponibles(Long id);
 
-  boolean isLibroDisponible(Long libroId);
-
-  List<LibroDTO> getAllLibrosPaginados(int page, int size);
+  Page<LibroDTO> listadoLibrosPaginadosConCriterios(int page, int size);
 }

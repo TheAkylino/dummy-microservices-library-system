@@ -29,15 +29,15 @@ public class AutorServiceImpl implements AutorService {
 
   @Override
   public AutorDTO crearAutor(AutorDTO autorDTO) {
-    return Optional.of(validarExistenciaAutorPorNombre(autorDTO))
+    return Optional.of(ValidateExistenceAuthorByName(autorDTO))
         .map(autorMapper::toEntity)
         .map(autorRepository::save)
         .map(autorMapper::toDTO)
         .orElseThrow(() -> new RuntimeException(mensajeError));
   }
 
-  private AutorDTO validarExistenciaAutorPorNombre(AutorDTO autorDTO) {
-    autorRepository.findAutoresByNombre(autorDTO.getNombre())
+  private AutorDTO ValidateExistenceAuthorByName(AutorDTO autorDTO) {
+    autorRepository.buscarAutorPorTitulo(autorDTO.getNombre())
         .ifPresent(autor -> {
           throw new RuntimeException("El autor con el nombre '"
               + autorDTO.getNombre() + "' ya existe.");
@@ -46,14 +46,14 @@ public class AutorServiceImpl implements AutorService {
   }
 
   @Override
-  public Optional<AutorDTO> getAutorById(Long id) {
+  public Optional<AutorDTO> obtenerAutorPorId(Long id) {
     return autorRepository.findById(id)
         .map(autorMapper::toDTO);
   }
 
   @Override
-  public AutorDTO updateAutor(Long id, AutorDTO autorDTO) {
-    return getAutorById(id)
+  public AutorDTO actualizarAutorPorId(Long id, AutorDTO autorDTO) {
+    return obtenerAutorPorId(id)
         .map(existingAutor -> {
           existingAutor.setNombre(autorDTO.getNombre());
           existingAutor.setNacionalidad(autorDTO.getNacionalidad());
@@ -65,12 +65,12 @@ public class AutorServiceImpl implements AutorService {
   }
 
   @Override
-  public void deleteAutor(Long id) {
+  public void elimitarAutorPorId(Long id) {
     autorRepository.deleteById(id);
   }
 
   @Override
-  public List<AutorDTO> getAllAutores() {
+  public List<AutorDTO> obtenerTodosLosAutores() {
     return autorRepository.findAll()
         .stream()
         .map(autorMapper::toDTO)

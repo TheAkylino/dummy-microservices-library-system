@@ -70,7 +70,7 @@ public class AutorController {
   @GetMapping("/getAllAutores")
   public ResponseEntity<List<AutorDTO>> getAllAutores() {
     log.info("** BUSCANDO TODOS LOS AUTORES **");
-    List<AutorDTO> autores = autorService.getAllAutores();
+    List<AutorDTO> autores = autorService.obtenerTodosLosAutores();
     return ResponseEntity.ok(autores);
   }
 
@@ -95,7 +95,7 @@ public class AutorController {
   @GetMapping("/obtenerAutorPorId/{id}")
   public ResponseEntity<AutorDTO> obtenerAutorPorId(@PathVariable Long id) {
     log.info("** BUSCANDO AUTOR POR ID **");
-    return autorService.getAutorById(id)
+    return autorService.obtenerAutorPorId(id)
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
   }
@@ -128,7 +128,7 @@ public class AutorController {
           dto.setId(id);
           return dto;
         })
-        .map(updateAutor -> autorService.updateAutor(id, updateAutor))
+        .map(updateAutor -> autorService.actualizarAutorPorId(id, updateAutor))
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
   }
@@ -152,9 +152,9 @@ public class AutorController {
       })
   @DeleteMapping("/eliminarAutor/{id}")
   public ResponseEntity<Void> eliminarAutor(@PathVariable Long id) {
-    return autorService.getAutorById(id)
+    return autorService.obtenerAutorPorId(id)
         .map(autor -> {
-          autorService.deleteAutor(id);
+          autorService.elimitarAutorPorId(id);
           return ResponseEntity.noContent().<Void>build();
         })
         .orElseGet(() -> ResponseEntity.notFound().build());

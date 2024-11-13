@@ -13,21 +13,23 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, String>> handleValidationExceptions
-      (MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getFieldErrors().forEach(error ->
-        errors.put(error.getField(), error.getDefaultMessage()));
-    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-  }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(NoHandlerFoundException.class)
   public ResponseEntity<String> handleNoHandlerFoundException(NoHandlerFoundException ex) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
         .body("No se encontró ningún controlador para su solicitud: " + ex.getRequestURL());
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    Map<String, String> errors = new HashMap<>();
+    ex.getBindingResult().getAllErrors().forEach((error) -> {
+      String fieldName = ((org.springframework.validation.FieldError) error).getField();
+      String errorMessage = error.getDefaultMessage();
+      errors.put(fieldName, errorMessage);
+    });
+    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
