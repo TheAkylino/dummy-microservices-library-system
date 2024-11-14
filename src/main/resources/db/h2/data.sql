@@ -15,16 +15,6 @@ INSERT INTO AUTOR (FECHA_NACIMIENTO,NACIONALIDAD,NOMBRE) VALUES ('1915-10-13','B
 INSERT INTO AUTOR (FECHA_NACIMIENTO,NACIONALIDAD,NOMBRE) VALUES ('1865-12-30','BRITÁNICA','RUDYARD KIPLING');
 INSERT INTO AUTOR (FECHA_NACIMIENTO,NACIONALIDAD,NOMBRE) VALUES ('1906-03-03','ITALIANA','CESARE PAVESE');
 
---INSERT INTO libro (titulo, isbn, fecha_publicacion, autor_id, estado) VALUES
---('Don Quijote de la Mancha, Parte 1', '9781234567890', '1605-01-16', 1, 'DISPONIBLE'),
---('Don Quijote de la Mancha, Parte 2', '9780987654321', '1615-11-05', 1, 'DISPONIBLE'),
---('La Galatea', '9782345678901', '1585-10-01', 1, 'PRESTADO'),
---('Los trabajos de Persiles y Sigismunda', '9783456789012', '1617-04-26', 1, 'DISPONIBLE'),
---('Novelas ejemplares', '9784567890123', '1613-09-20', 1, 'DISPONIBLE'),
---('La Numancia', '9785678901234', '1585-08-15', 1, 'DISPONIBLE'),
---('El trato de Argel', '9786789012345', '1582-06-10', 1, 'DISPONIBLE'),
---('La casa de los celos', '9787890123456', '1615-02-10', 1, 'DISPONIBLE');
-
 -- Insertar libros de Miguel de Cervantes Saavedra (Autor ID 1)
 INSERT INTO libro (titulo, isbn, fecha_publicacion, autor_id, estado) VALUES ('Don Quijote de la Mancha', '978-84-376-0494-7', '1605-01-16', 1, 'DISPONIBLE');
 INSERT INTO libro (titulo, isbn, fecha_publicacion, autor_id, estado) VALUES ('La Galatea', '978-84-376-0493-0', '1585-01-01', 1, 'PRESTADO');
