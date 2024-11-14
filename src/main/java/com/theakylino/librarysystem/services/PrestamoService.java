@@ -8,13 +8,13 @@ public interface PrestamoService {
 
   PrestamoDTO crearPrestamo(PrestamoDTO prestamoDTO);
 
-  Optional<PrestamoDTO> obtenerPrestamoById(Long id);
+  Optional<PrestamoDTO> obtenerPrestamoById(Integer id);
 
-  PrestamoDTO actualizarPrestamo(Long id, PrestamoDTO prestamoDTO);
+  PrestamoDTO actualizarPrestamo(Integer  id, PrestamoDTO prestamoDTO);
 
-  void borrarPrestamo(Long id);
+  void borrarPrestamo(Integer id);
 
   List<PrestamoDTO> obtenerTodosPrestamos();
 
-  List<PrestamoDTO> listaPrestamosPorLibro(Long libroId);
+  List<PrestamoDTO> listaPrestamosPorLibro(Integer  libroId);
 }

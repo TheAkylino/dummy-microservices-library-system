@@ -9,15 +9,15 @@ public interface LibroService {
 
   LibroDTO crearLibro(LibroDTO  libroDTO);
 
-  Optional<LibroDTO> obtenerLibroPorId(Long id);
+  Optional<LibroDTO> obtenerLibroPorId(Integer  id);
 
-  LibroDTO actualizarLibroPorId(Long id, LibroDTO libroDTO);
+  LibroDTO actualizarLibroPorId(Integer  id, LibroDTO libroDTO);
 
-  void eliminarLibroPorId(Long id);
+  void eliminarLibroPorId(Integer  id);
 
   List<LibroDTO> obtenerTodosLosLibros();
 
-  boolean isLibrosDisponibles(Long id);
+  boolean isLibrosDisponibles(Integer id);
 
   Page<LibroDTO> listadoLibrosPaginadosConCriterios(int page, int size);
 }

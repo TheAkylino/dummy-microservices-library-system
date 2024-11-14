@@ -38,7 +38,7 @@ public class PrestamoServiceImpl implements PrestamoService {
         .orElseThrow(() -> new RuntimeException(mensajeError));
   }
 
-  private Prestamo asignarLibro(Prestamo prestamo, Long libroId) {
+  private Prestamo asignarLibro(Prestamo prestamo, Integer libroId) {
     return Optional.ofNullable(libroId)
         .flatMap(libroRepository::findById)
         .map(libro -> {
@@ -49,13 +49,13 @@ public class PrestamoServiceImpl implements PrestamoService {
   }
 
   @Override
-  public Optional<PrestamoDTO> obtenerPrestamoById(Long id) {
+  public Optional<PrestamoDTO> obtenerPrestamoById(Integer  id) {
     return prestamoRepository.findById(id)
         .map(prestamoMapper::toDTO);
   }
 
   @Override
-  public PrestamoDTO actualizarPrestamo(Long id, PrestamoDTO prestamoDTO) {
+  public PrestamoDTO actualizarPrestamo(Integer id, PrestamoDTO prestamoDTO) {
     return obtenerPrestamoById(id)
         .map(existingPrestamo -> {
           existingPrestamo.setFechaPrestamo(prestamoDTO.getFechaPrestamo());
@@ -68,7 +68,7 @@ public class PrestamoServiceImpl implements PrestamoService {
   }
 
   @Override
-  public void borrarPrestamo(Long id) {
+  public void borrarPrestamo(Integer  id) {
     prestamoRepository.deleteById(id);
   }
 
@@ -81,11 +81,12 @@ public class PrestamoServiceImpl implements PrestamoService {
   }
 
   @Override
-  public List<PrestamoDTO> listaPrestamosPorLibro(Long libroId) {
-//    return prestamoRepository.buscarPorIdDeLibro(libroId)
-//        .stream()
-//        .map(prestamoMapper::toDTO)
-//        .collect(Collectors.toList());
-    return null;
+  public List<PrestamoDTO> listaPrestamosPorLibro(Integer  libroId) {
+    return Optional.ofNullable(prestamoRepository.buscarPrestamosPorLibroId(libroId))
+        .filter(prestamos -> !prestamos.isEmpty())
+        .orElseThrow(() -> new RuntimeException("No se encontraron préstamos para el libro con ID " + libroId))
+        .stream()
+        .map(prestamoMapper::toDTO)
+        .collect(Collectors.toList());
   }
 }

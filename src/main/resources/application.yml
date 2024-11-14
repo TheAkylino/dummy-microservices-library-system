@@ -31,4 +31,12 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none  # o create-drop si prefieres que se eliminen las tablas al cerrar
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/db/schema.sql
+      data-locations: classpath:/db/data.sql

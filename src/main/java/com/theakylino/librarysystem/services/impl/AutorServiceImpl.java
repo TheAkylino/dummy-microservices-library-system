@@ -46,13 +46,13 @@ public class AutorServiceImpl implements AutorService {
   }
 
   @Override
-  public Optional<AutorDTO> obtenerAutorPorId(Long id) {
+  public Optional<AutorDTO> obtenerAutorPorId(Integer id) {
     return autorRepository.findById(id)
         .map(autorMapper::toDTO);
   }
 
   @Override
-  public AutorDTO actualizarAutorPorId(Long id, AutorDTO autorDTO) {
+  public AutorDTO actualizarAutorPorId(Integer  id, AutorDTO autorDTO) {
     return obtenerAutorPorId(id)
         .map(existingAutor -> {
           existingAutor.setNombre(autorDTO.getNombre());
@@ -65,7 +65,7 @@ public class AutorServiceImpl implements AutorService {
   }
 
   @Override
-  public void elimitarAutorPorId(Long id) {
+  public void elimitarAutorPorId(Integer id) {
     autorRepository.deleteById(id);
   }
 

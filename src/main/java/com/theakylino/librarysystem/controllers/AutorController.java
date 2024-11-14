@@ -93,7 +93,7 @@ public class AutorController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @GetMapping("/obtenerAutorPorId/{id}")
-  public ResponseEntity<AutorDTO> obtenerAutorPorId(@PathVariable Long id) {
+  public ResponseEntity<AutorDTO> obtenerAutorPorId(@PathVariable Integer id) {
     log.info("** BUSCANDO AUTOR POR ID **");
     return autorService.obtenerAutorPorId(id)
         .map(ResponseEntity::ok)
@@ -120,7 +120,7 @@ public class AutorController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @PutMapping("/updateAutor/{id}")
-  public ResponseEntity<AutorDTO> actualizarAutor(@PathVariable Long id,
+  public ResponseEntity<AutorDTO> actualizarAutor(@PathVariable Integer id,
       @RequestBody @Valid AutorDTO autorDTO) {
     log.info("** ACTUALIZANDO AUTOR **");
     return Optional.of(autorDTO)
@@ -151,7 +151,7 @@ public class AutorController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @DeleteMapping("/eliminarAutor/{id}")
-  public ResponseEntity<Void> eliminarAutor(@PathVariable Long id) {
+  public ResponseEntity<Void> eliminarAutor(@PathVariable Integer id) {
     return autorService.obtenerAutorPorId(id)
         .map(autor -> {
           autorService.elimitarAutorPorId(id);

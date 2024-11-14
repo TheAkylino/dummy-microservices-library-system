@@ -95,7 +95,7 @@ public class LibroController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @GetMapping("/obtenerLibroPorId/{id}")
-  public ResponseEntity<LibroDTO> obtenerLibroPorId(@PathVariable Long id) {
+  public ResponseEntity<LibroDTO> obtenerLibroPorId(@PathVariable Integer id) {
     log.info("** BUSCANDO LiBRO POR ID **");
     return libroService.obtenerLibroPorId(id)
         .map(ResponseEntity::ok)
@@ -122,7 +122,7 @@ public class LibroController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @PutMapping("/updateLibro/{id}")
-  public ResponseEntity<LibroDTO> actualizarLibro(@PathVariable Long id,
+  public ResponseEntity<LibroDTO> actualizarLibro(@PathVariable Integer id,
       @RequestBody @Valid LibroDTO libroDTO) {
     log.info("** ACTUALIZANDO LIBRO **");
     return Optional.of(libroDTO)
@@ -153,7 +153,7 @@ public class LibroController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @DeleteMapping("/eliminarLibro/{id}")
-  public ResponseEntity<Void> eliminarAutor(@PathVariable Long id) {
+  public ResponseEntity<Void> eliminarAutor(@PathVariable Integer id) {
     return libroService.obtenerLibroPorId(id)
         .map(libro -> {
           libroService.eliminarLibroPorId(id);
@@ -179,7 +179,7 @@ public class LibroController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @GetMapping("/disponibilidadLibro/{id}")
-  public ResponseEntity<Boolean> verificarDisponibilidad(@PathVariable Long id) {
+  public ResponseEntity<Boolean> verificarDisponibilidad(@PathVariable Integer id) {
     boolean disponibilidad = libroService.isLibrosDisponibles(id);
     return ResponseEntity.ok(disponibilidad);
   }
@@ -201,8 +201,8 @@ public class LibroController {
           @ApiResponse(responseCode = "200", description = "Libros listados exitosamente"),
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
-  @GetMapping("/listBooksPaged")
-  public ResponseEntity<Page<LibroDTO>> listBooksPaged(
+  @GetMapping("/listaLibrosPaginados")
+  public ResponseEntity<Page<LibroDTO>> listaLibrosPaginados(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
     return ResponseEntity.ok(libroService.listadoLibrosPaginadosConCriterios(page, size));

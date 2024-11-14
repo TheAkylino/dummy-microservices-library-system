@@ -1,5 +1,6 @@
 package com.theakylino.librarysystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.sql.Date;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,17 +25,16 @@ public class Prestamo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
   @Column(name = "fecha_prestamo", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaPrestamo;
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDate fechaPrestamo;
 
   @Column(name = "fecha_devolucion")
-  @Temporal(TemporalType.DATE)
-  private Date fechaDevolucion;
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDate fechaDevolucion;
 
-  @Column(nullable = false)
   private String estado; // Activo / Finalizado
 
   @ManyToOne(fetch = FetchType.LAZY)

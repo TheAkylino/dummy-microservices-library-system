@@ -66,8 +66,8 @@ public class PrestamoController {
           @ApiResponse(responseCode = "404", description = "Libro no encontrado"),
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
-  @GetMapping("/libro/{libroId}")
-  public ResponseEntity<List<PrestamoDTO>> listaPrestamosLibros(@PathVariable Long libroId) {
+  @GetMapping("/prestamo/libro/{libroId}")
+  public ResponseEntity<List<PrestamoDTO>> listaPrestamosLibros(@PathVariable Integer libroId) {
     List<PrestamoDTO> prestamos = prestamoService.listaPrestamosPorLibro(libroId);
     return ResponseEntity.ok(prestamos);
   }
@@ -112,7 +112,7 @@ public class PrestamoController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @GetMapping("/obtenerPrestamoPorId/{id}")
-  public ResponseEntity<PrestamoDTO> obtenerPrestamoPorId(@PathVariable Long id) {
+  public ResponseEntity<PrestamoDTO> obtenerPrestamoPorId(@PathVariable Integer id) {
     log.info("** BUSCANDO PRÉSTAMO POR ID **");
     return prestamoService.obtenerPrestamoById(id)
         .map(ResponseEntity::ok)
@@ -140,7 +140,7 @@ public class PrestamoController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @PutMapping("/updatePrestamo/{id}")
-  public ResponseEntity<PrestamoDTO> actualizarPrestamo(@PathVariable Long id,
+  public ResponseEntity<PrestamoDTO> actualizarPrestamo(@PathVariable Integer id,
       @RequestBody @Valid PrestamoDTO prestamoDTO) {
     log.info("** ACTUALIZANDO PRÉSTAMO **");
     return Optional.of(prestamoDTO)
@@ -172,7 +172,7 @@ public class PrestamoController {
           @ApiResponse(responseCode = "500", description = "Error interno del servidor")
       })
   @DeleteMapping("/eliminarPrestamo/{id}")
-  public ResponseEntity<Void> eliminarPrestamo(@PathVariable Long id) {
+  public ResponseEntity<Void> eliminarPrestamo(@PathVariable Integer id) {
     return prestamoService.obtenerPrestamoById(id)
         .map(autor -> {
           prestamoService.borrarPrestamo(id);

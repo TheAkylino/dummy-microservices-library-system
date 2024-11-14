@@ -1,5 +1,6 @@
 package com.theakylino.librarysystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
@@ -24,7 +26,7 @@ public class Libro {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
   @Column(nullable = false)
   private String titulo;
@@ -33,9 +35,10 @@ public class Libro {
   private String isbn;
 
   @Column(name = "fecha_publicacion")
-  private String fechaPublicacion;
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDate fechaPublicacion;
 
-  @Column(nullable = false)
+  @Column(name = "estado")
   private String estado;
 
   @ManyToOne(fetch = FetchType.LAZY)

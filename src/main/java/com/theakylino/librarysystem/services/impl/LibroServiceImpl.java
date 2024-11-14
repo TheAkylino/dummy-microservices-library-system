@@ -60,7 +60,7 @@ public class LibroServiceImpl implements LibroService {
     return libroDTO;
   }
 
-  private Libro asignarAutor(Libro libro, Long autorId) {
+  private Libro asignarAutor(Libro libro, Integer  autorId) {
     return autorRepository.findById(autorId)
         .map(autor -> {
           libro.setAutor(autor);
@@ -70,18 +70,19 @@ public class LibroServiceImpl implements LibroService {
   }
 
   @Override
-  public Optional<LibroDTO> obtenerLibroPorId(Long id) {
+  public Optional<LibroDTO> obtenerLibroPorId(Integer  id) {
     return libroRepository.findById(id)
         .map(libroMapper::toDTO);
   }
 
   @Override
-  public LibroDTO actualizarLibroPorId(Long id, LibroDTO libroDTO) {
+  public LibroDTO actualizarLibroPorId(Integer  id, LibroDTO libroDTO) {
     return obtenerLibroPorId(id)
         .map(existingLibro -> {
           existingLibro.setTitulo(libroDTO.getTitulo());
           existingLibro.setIsbn(libroDTO.getIsbn());
           existingLibro.setFechaPublicacion(libroDTO.getFechaPublicacion());
+          existingLibro.setEstado(libroDTO.getEstado());
           var libroActualizado = libroRepository.save(libroMapper.toEntity(existingLibro));
           return libroMapper.toDTO(libroActualizado);
         })
@@ -89,7 +90,7 @@ public class LibroServiceImpl implements LibroService {
   }
 
   @Override
-  public void eliminarLibroPorId(Long id) {
+  public void eliminarLibroPorId(Integer  id) {
     libroRepository.deleteById(id);
   }
 
@@ -102,7 +103,7 @@ public class LibroServiceImpl implements LibroService {
   }
 
   @Override
-  public boolean isLibrosDisponibles(Long id) {
+  public boolean isLibrosDisponibles(Integer  id) {
     return libroRepository.findById(id)
         .map(libro -> AVAILABLE.equalsIgnoreCase(libro.getEstado()))
         .orElse(false);

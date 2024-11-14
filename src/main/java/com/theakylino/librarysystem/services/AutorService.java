@@ -8,11 +8,11 @@ public interface AutorService {
 
   AutorDTO crearAutor(AutorDTO autorDTO);
 
-  Optional<AutorDTO> obtenerAutorPorId(Long id);
+  Optional<AutorDTO> obtenerAutorPorId(Integer  id);
 
-  AutorDTO actualizarAutorPorId(Long id, AutorDTO autorDTO);
+  AutorDTO actualizarAutorPorId(Integer  id, AutorDTO autorDTO);
 
-  void elimitarAutorPorId(Long id);
+  void elimitarAutorPorId(Integer id);
 
   List<AutorDTO> obtenerTodosLosAutores();
 }
