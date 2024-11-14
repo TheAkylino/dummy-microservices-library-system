@@ -15,9 +15,10 @@ server:
   servlet:
     context-path: /dummy-microservices-library-system
 
+# Configuración para el perfil de desarrollo/test (H2)
 spring:
   profiles:
-    active: local
+    active: local  # Perfil por defecto
   datasource:
     url: jdbc:h2:mem:devdb
     driverClassName: org.h2.Driver
@@ -31,12 +32,37 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: none  # o create-drop si prefieres que se eliminen las tablas al cerrar
+      ddl-auto: none  # Usa create-drop para desarrollo si quieres que se eliminen las tablas al cerrar
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
   sql:
     init:
       mode: always
-      schema-locations: classpath:/db/schema.sql
-      data-locations: classpath:/db/data.sql
+      schema-locations: classpath:/db/h2/schema.sql
+      data-locations: classpath:/db/h2/data.sql
+
+---
+# Configuración para el perfil de producción (Oracle)
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1  # Cambia la URL según tu configuración de Oracle
+    driverClassName: oracle.jdbc.OracleDriver
+    username: sys
+    password: aolazo2437124371.
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Para producción, no se recomienda "create-drop"
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+  sql:
+    init:
+      mode: always  # Ejecutar scripts SQL en Oracle también
+      schema-locations: classpath:/db/oracle/schema.sql  # Especificar el esquema para Oracle
+      data-locations: classpath:/db/oracle/data.sql  # Especificar los datos para Oracle

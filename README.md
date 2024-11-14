@@ -28,4 +28,15 @@
 ------------------------------------------------------------------------------
 *La url del swagger es: http://localhost:8081/dummy-microservices-library-system/swagger-ui/index.html#/* <br/>
 *La url de la base de datos local es: http://localhost:8081/dummy-microservices-library-system/h2-console/* <br/>
+*Y la clave es:   username: dev , password: dev*
 ![img_1.png](img_1.png)
+
+*Para la base de datos Oracle se utilizo docker* <br/>
+![img_2.png](img_2.png)
+
+*En está ruta se ejecutará el siguiente docker-compose* <br/>
+![img_3.png](img_3.png)
+
+*se le da mvn clean package*
+*java -jar target/dummy-microservices-library-system-1.0.0-SNAPSHOT.jar -Dspring.profiles.active=prod para ingresar al modo produccion*
+
